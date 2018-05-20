@@ -118,12 +118,14 @@ function showPopup(Registry, chooseCallback, cancelCallback) {
         Elem.el('div', { className: "modal"}, [
             Elem.el('div', { className: 'modal-header' }, [
                 Elem.el('button', { className: 'close', dataDismiss: 'modal', ariaHidden: 'true' }, { __asHtml: '&times;' }),
-                Elem.el('h3', 'Ajouter une application')
+                //Elem.el('h3', 'Ajouter une application')
+                Elem.el('h3', 'Add an Application')
             ]),
             Elem.el('div', { className: 'modal-body' }, [
                 Elem.el('form', { className: 'form-horizontal' }, [
                     Elem.el('div', { className: 'control-group' }, [
-                        Elem.el('label', { className: 'control-label' }, 'Rechercher'),
+                       // Elem.el('label', { className: 'control-label' }, 'Rechercher'),
+                       Elem.el('label', { className: 'control-label' }, 'Search'),
                         Elem.el('div', { className: 'controls' },
                             Elem.el('input', { type: 'text', onkeydown: _filter, onkeyup: _filter, onkeypress: _filter }, [])
                         )
@@ -136,7 +138,8 @@ function showPopup(Registry, chooseCallback, cancelCallback) {
             Elem.el('div', { className: 'modal-footer' }, [
                 Elem.el('form', { className: 'form-horizontal' }, [
                     Elem.el('div', { id: 'sizeSelector', className: 'control-group' }, [
-                        Elem.el('label', { className: 'control-label' }, 'Largeur (3 à 12)'),
+                        //Elem.el('label', { className: 'control-label' }, 'Largeur (3 à 12)'),
+                        Elem.el('label', { className: 'control-label' }, 'Width (3 to 12)'),
                         Elem.el('div', { className: 'controls' },
                             Elem.el('select', { ref: 'widthSelector', value: width, onchange: _saveValue }, [
                                 Elem.el('option', { value: '3'}, '3'),
@@ -153,8 +156,10 @@ function showPopup(Registry, chooseCallback, cancelCallback) {
                         )
                     ])
                 ]),
-                Elem.el('a', { className: 'btn', dataDismiss: 'modal', ariaHidden: 'true' }, 'Fermer'),
-                Elem.el('a', { className: 'btn btn-primary', id: 'addWidgetButton', onclick: select }, 'Ajouter')
+                //Elem.el('a', { className: 'btn', dataDismiss: 'modal', ariaHidden: 'true' }, 'Fermer'),
+                Elem.el('a', { className: 'btn', dataDismiss: 'modal', ariaHidden: 'true' }, 'Close'),
+               // Elem.el('a', { className: 'btn btn-primary', id: 'addWidgetButton', onclick: select }, 'Ajouter')
+               Elem.el('a', { className: 'btn btn-primary', id: 'addWidgetButton', onclick: select }, 'Add')
             ])
         ])
     );

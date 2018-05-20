@@ -157,6 +157,58 @@ var _ = Portal.Underscore;
 
 })();
 
+
+(function() {
+
+    var EmbededWidget = Portal.Widget({
+      name: "Embeded",
+      description: "Embeded Widget" ,
+      hasPrefs: true,
+      alwaysShowPrefs: true,
+      defaultPrefs: { html5: "# Hello World!" },
+    //  cssAssets: ['/url/to/the/nice/css/file.css'],
+      jsAssets: ['http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js'],
+      unmount: function(cont) {
+        console.log('unmount from ' + cont);
+      },
+      willMount: function() {
+        this.converter = new Showdown.converter();
+      },
+      render: function(container, prefs) {
+          var htmltext = '<div> ' + prefs.html5 + '</div>';
+        $('#' + container).html(htmltext);
+      },
+      renderEdit: function(container, prefs, saveCallback, cancelCallback) {
+        $('#' + container).html('<div>' +
+          '<div class="row-fluid">' +
+            '<textarea id="' + (container + '_mdtext')
+                + '"class="largeText span12" rows=10>' + (prefs.html5 || '') + '</textarea>' +
+          '</div>' +
+          '<div class="row-fluid" style="margin-top: 10px">' +
+            '<div class="btn-group pull-right">' +
+              '<button type="button" id="' + (container + '_mdcancel')
+                  + '" class="btn btn-small btn-danger">Cancel</button>' +
+              '<button type="button" id="' + (container + '_mdok')
+                  + '" class="btn btn-small btn-primary">Ok</button>' +
+            '</div>' +
+          '</div></div>'
+        );
+        $('#' + container + '_mdcancel')
+            .click(cancelCallback);  // add action when clicking on cancel
+        $('#' + container + '_mdok').click(function(e) { // add action when clicking on save
+          e.preventDefault();
+          prefs.html5 =
+            $('#' + container + '_mdtext').val(); // change value of prefs.markdown
+          saveCallback(prefs); // use the saveCallback to save prefs in the store
+        });
+      }
+    });
+
+    Portal.registerWidget('1qaz2WSX3edc', EmbededWidget);
+
+})();
+
+
 var templateAddTab = '<li><a class="portal-add-tab" href="#"><i class="icon-plus"></i></a></li>';
 var templateTabAdmin = _.template('<li>' +
 '<a href="#" class="portal-remove-tab-injected" style="position: absolute" data-tab-id="<%= id %>">&times;</a>' +
@@ -176,6 +228,7 @@ function displayTabs(tabs) {
 var portal = Portal.bootstrap({
     userId: '123456',
     adminMode: true,
+    //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
     bindTabToHash: true,
     onTabLoad: displayTabs
 });

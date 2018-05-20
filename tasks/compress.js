@@ -23,9 +23,9 @@ zipFileName = 'target/portaljs.zip';
 
 var zip = new AdmZip();
 
-zip.addLocalFile("dist/portal.js");
+//zip.addLocalFile("dist/portal.js");
 zip.addLocalFile("dist/portal.min.js");
-zip.addLocalFile("dist/portal.min.map");
+//zip.addLocalFile("dist/portal.min.map");
 
 mkdirp('target', function(err) {
   console.log('Writing to ' + zipFileName.red);

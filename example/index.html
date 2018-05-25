@@ -28,13 +28,12 @@
                         </button>
                         <a class="brand" href="#"> <p id="displayname"></p></a>
                         <div class="nav-collapse collapse">
-                            <p class="navbar-text pull-right"></p>
-                            <ul id="tabs" class="nav"> </ul>
+                            <p class="navbar-text pull-right">
+                            <a href="#" onclick="toggleEditMode();" class="icon-edit icon-white"></a>                                
+                            <a href="#" onclick="authContext.logOut(); return false;" class="icon-off icon-white" ></a>                            
+                         <ul id="tabs" class="nav"> </ul>
                         </div>
-                        <div class="nav-collapse collapse pull-right">
-                        <a href="#" onclick="toggleEditMode();" class="icon-edit icon-white"> </a> 
-                        <a href="#" onclick="authContext.logOut(); return false;" class="icon-off icon-white" ></a>
-                        </div>
+                      
                     </div>
                 </div>
             </div>

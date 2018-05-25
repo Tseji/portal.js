@@ -225,18 +225,15 @@ function displayTabs(tabs) {
     $tabs.append(templateAddTab);
 }
 
-var portal = Portal.bootstrap({
+var editmode = true;
+
+var portal = portal = Portal.bootstrap({
     userId: authContext.getCachedUser().userName.toLowerCase(),
-    adminMode: true,
+    adminMode: editmode,
     //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
     bindTabToHash: true,
     onTabLoad: displayTabs
 });
-
-
-
-var editmode = true;
-
 
 function toggleEditMode() {
   
@@ -325,4 +322,5 @@ $body.on('click', '.portal-remove-tab-injected', function(e) {
 
 Portal.globalEvents.on('konami', function() {
     console.log("Konami show !!!!");
+    
 });

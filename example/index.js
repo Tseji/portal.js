@@ -175,7 +175,7 @@ var _ = Portal.Underscore;
         this.converter = new Showdown.converter();
       },
       render: function(container, prefs) {
-          var htmltext = '<div> ' + prefs.html5 + '</div>';
+          var htmltext = '<div>' + prefs.html5 + '</div>';
         $('#' + container).html(htmltext);
       },
       renderEdit: function(container, prefs, saveCallback, cancelCallback) {
@@ -226,19 +226,81 @@ function displayTabs(tabs) {
 }
 
 var portal = Portal.bootstrap({
-    userId: '123456',
+    userId: authContext.getCachedUser().userName.toLowerCase(),
     adminMode: true,
     //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
     bindTabToHash: true,
     onTabLoad: displayTabs
 });
 
+
+
+var editmode = true;
+
+
+function toggleEditMode() {
+  
+
+    if (editmode == true)   {
+      console.log("edit Mode = true");
+
+      editmode = false;
+      portal = Portal.bootstrap({
+        userId: authContext.getCachedUser().userName.toLowerCase(),
+        adminMode: editmode,
+        //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
+        bindTabToHash: true,
+        onTabLoad: displayTabs
+    });
+
+    var all = document.getElementsByClassName('portal-add-tab');
+     for (var i = 0; i < all.length; i++) {
+      all[i].style.visibility = 'hidden';
+     }
+
+     var all = document.getElementsByClassName('portal-remove-tab-injected');
+     for (var i = 0; i < all.length; i++) {
+      all[i].style.visibility = 'hidden';
+     }
+  
+} else {
+    console.log("edit Mode = false");
+    
+
+      editmode = true;
+      portal = Portal.bootstrap({
+        userId: authContext.getCachedUser().userName.toLowerCase(),
+        adminMode: editmode,
+        //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
+        bindTabToHash: true,
+        onTabLoad: displayTabs
+    }); 
+
+    var all = document.getElementsByClassName('portal-add-tab');
+    for (var i = 0; i < all.length; i++) {
+     all[i].style.visibility = 'visible';
+    }
+
+    var all = document.getElementsByClassName('portal-remove-tab-injected');
+    for (var i = 0; i < all.length; i++) {
+     all[i].style.visibility = 'visible';
+    }
+
+     
+}
+}
+
 $body.on('click', '.portal-add-tab', function(e) {
     e.preventDefault();
     var name = prompt('Name of the tab ?');
+    if (name){
     portal.addTab(name).then(function() {
         displayTabs(portal.getTabs());
     });
+    } else {
+        console.log("no nome provided, tab will not create")
+    }
+
 });
 
 $body.on('click', '.tab-selector', function(e) {
@@ -249,9 +311,16 @@ $body.on('click', '.tab-selector', function(e) {
 
 $body.on('click', '.portal-remove-tab-injected', function(e) {
     e.preventDefault();
-    portal.removeTab({ id: '' + $(this).data('tab-id') }).then(function() {
-        displayTabs(portal.getTabs());
-    });
+
+    if (confirm('Are you sure you want to delete the '+ $(this).data('title') +' Tab ?')) {
+        portal.removeTab({ id: '' + $(this).data('tab-id') }).then(function() {
+            displayTabs(portal.getTabs());
+        });
+    } else {
+        // Do nothing!
+    }
+
+   
 });
 
 Portal.globalEvents.on('konami', function() {

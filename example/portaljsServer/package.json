@@ -1,0 +1,21 @@
+{
+  "name": "portaljs-user-config",
+  "version": "1.0.0",
+  "description": "Portaljs user configuration service, it is used to retrive and store PortalJS user configuration",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "keyv": "^3.0.0",
+    "swagger-tools": "^0.10.3"
+  }
+}

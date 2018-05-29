@@ -226,11 +226,12 @@ function displayTabs(tabs) {
 }
 
 var editmode = true;
+var apiUrl = 'http://localhost:8081/user';
 
 var portal = portal = Portal.bootstrap({
     userId: authContext.getCachedUser().userName.toLowerCase(),
     adminMode: editmode,
-    //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
+    apiRootUrl: apiUrl,
     bindTabToHash: true,
     onTabLoad: displayTabs
 });
@@ -245,7 +246,7 @@ function toggleEditMode() {
       portal = Portal.bootstrap({
         userId: authContext.getCachedUser().userName.toLowerCase(),
         adminMode: editmode,
-        //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
+        apiRootUrl: apiUrl,
         bindTabToHash: true,
         onTabLoad: displayTabs
     });
@@ -268,7 +269,7 @@ function toggleEditMode() {
       portal = Portal.bootstrap({
         userId: authContext.getCachedUser().userName.toLowerCase(),
         adminMode: editmode,
-        //apiRootUrl: 'https://esqportal.azurewebsites.net/portal/services',
+        apiRootUrl: apiUrl,
         bindTabToHash: true,
         onTabLoad: displayTabs
     }); 

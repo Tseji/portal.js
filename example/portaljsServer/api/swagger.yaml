@@ -1,0 +1,59 @@
+---
+swagger: "2.0"
+info:
+  description: "PortJS user configuration management API for managing PortJS user\
+    \ tab configuration"
+  version: "1.0.0"
+  title: "PortJS User Configuration Management API"
+schemes:
+- "http"
+paths:
+  /user/api/{userId}:
+    get:
+      tags:
+      - "TabConfig"
+      summary: "Get tab configuration for particualr user"
+      description: "Return array of tabs"
+      operationId: "userApiUserIdGET"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "return array of tabs"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A list of tab configuration"
+          schema:
+            type: "string"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+              default: "*"
+      x-swagger-router-controller: "TabConfig"
+    post:
+      tags:
+      - "TabConfig"
+      summary: "Update tab configuration for particualr user"
+      description: "Save array of tabs and return result tabs"
+      operationId: "userApiUserIdPOST"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "return array of tabs"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "tabconfig"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "A list of tab configuration"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid ID supplied"
+      x-swagger-router-controller: "TabConfig"
+definitions: {}
